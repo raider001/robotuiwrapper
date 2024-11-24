@@ -121,5 +121,26 @@ class RobotUIWrapper():
     def set_mouse_move_speed(self, speed: int) -> None:
         self._remote.run_keyword("setMouseMoveSpeed", [speed], None)
 
+    #OCR
+    @keyword
+    def get_words(self, x: int | None = None, y: int | None = None, display: str | None = None, window: str | None = None) -> list[dict]:
+        return self._remote.run_keyword("getWords", [], self._filtered(locals())) # type: ignore
+
+    @keyword
+    def get_text(self, x: int | None = None, y: int | None = None, display: str | None = None, window: str | None = None) -> str:
+        return self._remote.run_keyword("getText", [], self._filtered(locals())) # type: ignore
+    
+    @keyword
+    def set_ocr_mode(self, mode: str) -> None:
+        self._remote.run_keyword("setOcrMode", [mode], None)
+
+    @keyword
+    def set_page_seg_mode(self, mode: str) -> None:
+        self._remote.run_keyword("setPageSegMode", [mode], None)
+
+    @keyword
+    def set_data_path(self, path: str) -> None:
+        self._remote.run_keyword("setDataPath", [path], None)
+
     def _filtered(self, args: dict) -> dict:
         return {k: v for k, v in args.items() if v is not None}
