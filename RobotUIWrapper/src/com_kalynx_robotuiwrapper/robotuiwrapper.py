@@ -201,5 +201,29 @@ class RobotUIWrapper():
     def set_keystroke_speed(self, delay_speed: int) -> None:
         self._remote.run_keyword("setKeystrokeSpeed", [delay_speed], None)
 
+    # Window Keywords
+    @keyword
+    def get_all_available_windows(self) -> list[str]:
+        return self._remote.run_keyword("getAllAvailableWindows", [], None) # type: ignore
+
+    @keyword
+    def get_window_dimensions(self, window_name: str) -> dict[str, int]:
+        return self._remote.run_keyword("getWindowDimensions", [window_name], None) # type: ignore
+    
+    @keyword
+    def bring_window_to_front(self, window_name: str) -> None:
+        self._remote.run_keyword("bringWindowToFront", [window_name], None)
+
+    @keyword
+    def move_window(self, window_name: str, x: int, y: int, display: str | None = None) -> None:
+        args: dict = {}
+        if display:
+            args["display"] = display
+        self._remote.run_keyword("moveWindow", [window_name,x,y], args)
+
+    @keyword
+    def resize_window(self, window_name: str, width: int, height: int) -> None:
+        self._remote.run_keyword("resizeWindow", [window_name,width,height], None)
+
     def _filtered(self, args: dict) -> dict:
         return {k: v for k, v in args.items() if v is not None}
