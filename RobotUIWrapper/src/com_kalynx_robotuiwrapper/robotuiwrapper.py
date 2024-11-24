@@ -142,5 +142,36 @@ class RobotUIWrapper():
     def set_data_path(self, path: str) -> None:
         self._remote.run_keyword("setDataPath", [path], None)
 
+    #Screen Keywords
+    @keyword
+    def verify_image_exists(self, image_name: str, min_match_score: float, wait_time: int = 200) -> None:
+        self._remote.run_keyword("verifyImageExists", [image_name, min_match_score, wait_time], None)
+
+    @keyword
+    def verify_image_does_not_exist(self, image_name: str, min_match_score: float, wait_time: int = 200) -> None:
+        self._remote.run_keyword("verifyImageDoesNotExist", [image_name, min_match_score, wait_time], None)
+
+    @keyword
+    def verify_image_exists_on_display(self, image_name: str, display_name: str, min_match_score: float, wait_time: int = 200) -> None:
+        self._remote.run_keyword("verifyImageExistsOnDisplay", [image_name, display_name, min_match_score, wait_time], None)
+
+    @keyword
+    def verify_image__does_not_exist_on_display(self, image_name: str, display_name: str, min_match_score: float, wait_time: int = 200) -> None:
+        self._remote.run_keyword("verifyImageDoesNotExistOnDisplay", [image_name, display_name, min_match_score, wait_time], None)
+
+    @keyword
+    def verify_image_exists_on_window(self, image_name: str, window_name: str, min_match_score: float, wait_time: int = 200) -> None:
+        self._remote.run_keyword("verifyImageExistsOnWindow", [image_name, window_name, min_match_score, wait_time], None)
+
+    @keyword
+    def verify_image__does_not_exist_on_window(self, image_name: str, window_name: str, min_match_score: float, wait_time: int = 200) -> None:
+        self._remote.run_keyword("verifyImageDoesNotExistOnWindow", [image_name, window_name, min_match_score, wait_time], None)
+
+    @keyword
+    def get_image_bounds(self, image: str, minMatchScore: float = -1, waitTime: int = 200, display: str | None = None, window: str | None = None) -> None:
+        vals: dict = self._filtered(locals())
+        vals.pop("image")
+        self._remote.run_keyword("getImageBounds", [image], vals)
+
     def _filtered(self, args: dict) -> dict:
         return {k: v for k, v in args.items() if v is not None}
