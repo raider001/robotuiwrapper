@@ -88,10 +88,38 @@ class RobotUIWrapper():
         self._remote.run_keyword("pressKeys", [key1], self._filtered(vals))
 
     # Mouse keywords
+
+    @keyword
+    def move_mouse(self, x_relative: int, y_relative: int) -> None:
+        self._remote.run_keyword("moveMouse", [x_relative, y_relative], None)
+
     @keyword
     def move_mouse_to(self, x: int | None = None, y: int | None = None, image: str | None = None, display: str | None = None, window: str | None = None) -> None:
-        vals: dict = {"x": x, "y": y, "image": image, "display": display, "window": window}
         self._remote.run_keyword("moveMouseTo", [], self._filtered(locals()))
+
+    @keyword
+    def click(self, button: str = "LEFT", times: int = 1, x: int | None = None, y: int | None = None, image: str | None = None, display: str | None = None, window: str | None = None) -> None:
+        self._remote.run_keyword("click", [], self._filtered(locals()))
+
+    @keyword
+    def press_mouse_button(self, button: str) -> None:
+        self._remote.run_keyword("pressMouseButton", [button], None)
+
+    @keyword
+    def release_mouse_button(self, button: str) -> None:
+        self._remote.run_keyword("releaseMouseButton", [button], None)
+
+    @keyword
+    def get_mouse_position(self) -> dict[str, int]:
+        return self._remote.run_keyword("getMousePosition", [], None) # type: ignore
+
+    @keyword
+    def mouse_scroll(self, scroll_arount: int) -> None:
+        self._remote.run_keyword("mouseScroll", [scroll_arount], None)
+    
+    @keyword
+    def set_mouse_move_speed(self, speed: int) -> None:
+        self._remote.run_keyword("setMouseMoveSpeed", [speed], None)
 
     def _filtered(self, args: dict) -> dict:
         return {k: v for k, v in args.items() if v is not None}

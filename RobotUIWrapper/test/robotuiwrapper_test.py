@@ -11,6 +11,11 @@ class TestRobotUiWrapper(unittest.TestCase):
 
     def test_move_mouse_to(self):
         self._sut.move_mouse_to(x=100,y=100)
+
+    def test_mouse_position(self):
+        val = self._sut.get_mouse_position()
+        self.assertIn("x", val.keys())
+        self.assertIn("y", val.keys())
  
 if __name__ == '__main__':
     unittest.main() 
