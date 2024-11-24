@@ -173,5 +173,33 @@ class RobotUIWrapper():
         vals.pop("image")
         self._remote.run_keyword("getImageBounds", [image], vals)
 
+    #Settings
+    @keyword
+    def set_timeout_time(self, timeout_time: int) -> None:
+        self._remote.run_keyword("setTimeoutTime", [timeout_time], None)
+
+    def get_image_paths(self) -> list[str]:
+        return self._remote.run_keyword("getImagePaths", [], None) # type: ignore
+
+    @keyword
+    def set_poll_rate(self, poll_rate: int) -> None:
+        self._remote.run_keyword("setPollRate", [poll_rate], None)
+
+    @keyword
+    def set_result_path(self, path: str) -> None:
+        self._remote.run_keyword("setResultPath", [path], None)
+
+    @keyword
+    def set_match_percentage(self, min_similarity: float) -> None:
+        self._remote.run_keyword("setMatchPercentage", [min_similarity], None)
+
+    @keyword
+    def add_image_location(self, image_location: str) -> None:
+        self._remote.run_keyword("addImageLocation", [image_location], None)
+
+    @keyword
+    def set_keystroke_speed(self, delay_speed: int) -> None:
+        self._remote.run_keyword("setKeystrokeSpeed", [delay_speed], None)
+
     def _filtered(self, args: dict) -> dict:
         return {k: v for k, v in args.items() if v is not None}
